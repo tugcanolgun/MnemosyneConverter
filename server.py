@@ -5,7 +5,7 @@ from flask_restful import Resource, Api
 from flask_cors import CORS
 # Import W3C schemas
 from resources.search import SearchService
-from resources.to_w3c import to_w3c
+from resources.to_w3c import from_ann
 
 app = Flask(__name__)
 # cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -19,20 +19,23 @@ URL_FIND = "annotations/find?id="
 # Endpoint for annotation creation
 URL_CRT = "annotations"
 
+
 class Search(Resource):
     """Annotator /search endpoint"""
     def get(self):
-        response = SearchService(URL+URL_FIND).get()
+        response = SearchService(URL + URL_FIND).get()
         print(f"Returning {response['total']} annotations")
         return jsonify(response)
 
 
 class Custom(Resource):
     """Main handler of the W3C objects"""
-    def post(self, src:str) -> dict:
+    def post(self, src: str) -> dict:
         data = request.get_json()
-        print(data, src)
+        from_ann(data, src)
         pass
+        return jsonify(data)
+
 
 class Annotations(Resource):
     """Annotator create endpoint"""
@@ -47,14 +50,15 @@ class Annotations(Resource):
 
 class AnnotationsEmpty(Resource):
     """Not required for this project"""
-    def get(self, id:str) -> None:
-        return None
+    def get(self, id: str) -> None:
+        return jsonify()
 
-    def delete(self, id:str) -> None:
-        return None
-    
-    def put(self, id:str) -> None:
-        return None
+    def delete(self, id: str) -> None:
+        return jsonify()
+
+    def put(self, id: str) -> None:
+        return jsonify()
+
 
 api.add_resource(Search, '/search')
 api.add_resource(Custom, '/create/<path:src>')

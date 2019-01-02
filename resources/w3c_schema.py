@@ -1,4 +1,5 @@
 
+
 def text():
     """Returns text equivalent of the W3C text"""
     return {
@@ -12,21 +13,21 @@ def text():
         "generator": {
             "homepage": "http://mnemosyne.ml",
             "id": "string",
-            "name": "string",
-            "type": "string"
+            "name": "Mnemosyne",
+            "type": "Mnemosyne"
         },
         "target": {
-                "id": "string",
-                "type": "TextQuoteSelector",
-                "exact": "string",
-                "format": "string",
-                "source": "string",
-                "prefix": 0,
-                "suffix": 0,
-                "refinedBy": {
-                    "type": "TextPositionSelector",
-                    "start": "/div[2]",
-                    "end": "/div[2]"
-                },
+            "id": "string",
+            "type": "TextQuoteSelector",
+            "exact": "string",
+            "format": "string",
+            "source": "string",
+            "prefix": 0,
+            "suffix": 0,
+            "refinedBy": {
+                "type": "TextPositionSelector",
+                "start": "/div[2]",
+                "end": "/div[2]"
             },
-        }
+        },
+    }
