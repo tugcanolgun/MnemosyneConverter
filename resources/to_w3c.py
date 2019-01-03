@@ -1,7 +1,6 @@
 import json
 import requests
 from resources.w3c_schema import text as w3ctext
-from delete import MOCK
 
 
 def to_w3c(src: str,
@@ -28,7 +27,7 @@ def to_w3c(src: str,
     return ann
 
 
-def from_ann(data: dict, src: str) -> dict:
+def from_ann(data: dict, src: str, api: str) -> dict:
     """Takes annotatorjs object and divides"""
     if "quote" not in data or "text" not in data or "ranges" not in data:
         return {}
@@ -40,9 +39,8 @@ def from_ann(data: dict, src: str) -> dict:
                        data["ranges"][0]["end"],
                        data["text"],
                     )
-    MOCK.append(res)
     headers = {'Content-type': 'application/ld+json'}
-    req = requests.post("http://annotationserver.xtptzahyma.us-east-1.elasticbeanstalk.com/annotations",
+    req = requests.post(api,
         data=json.dumps(res),
         headers=headers)
     print(req.text)

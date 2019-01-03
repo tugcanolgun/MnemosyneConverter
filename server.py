@@ -15,7 +15,7 @@ api = Api(app)
 # Main W3C API
 URL = "http://annotationserver.xtptzahyma.us-east-1.elasticbeanstalk.com/"
 # Endpoint for target.id
-URL_FIND = "annotations/find?id="
+URL_FIND = "annotations/generator?id="
 # Endpoint for annotation creation
 URL_CRT = "annotations"
 
@@ -23,7 +23,7 @@ URL_CRT = "annotations"
 class Search(Resource):
     """Annotator /search endpoint"""
     def get(self):
-        response = SearchService(URL + URL_FIND).get()
+        response = SearchService(URL + URL_CRT).get()
         print(f"Returning {response['total']} annotations")
         return jsonify(response)
 
@@ -32,7 +32,7 @@ class Custom(Resource):
     """Main handler of the W3C objects"""
     def post(self, src: str) -> dict:
         data = request.get_json()
-        from_ann(data, src)
+        from_ann(data, src, URL + URL_CRT)
         pass
         return jsonify(data)
 

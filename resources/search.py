@@ -1,6 +1,6 @@
-# import requests
+import json
+import requests
 from resources.annotatorjs import annotatorjs
-from delete import MOCK
 
 
 class SearchService:
@@ -51,8 +51,8 @@ class SearchService:
         Gets data from an API and tries to fill the
         annotatorjs type object with 'total' and 'rows'
         """
-        # data = requests.get(self.url)
-        annotatations: list = MOCK
+        data = requests.get(self.url)
+        annotatations: list = json.loads(data.text)
         data: dict = {"total": 0, "rows": []}
         for anno in annotatations:
             if self.validation(anno):
