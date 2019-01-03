@@ -45,3 +45,18 @@ ExecStart=/home/user1/server/.env/bin/uwsgi --ini server.ini
 [Install]
 WantedBy=multi-user.target
 ```
+
+## Reverse proxying nginx
+
+
+server {
+    ...
+    server_name annotatorconverter.tugcan.net;
+
+    location / {
+        #try_files $uri $uri/ =404;
+        include uwsgi_params;
+        uwsgi_pass unix:/home/user1/MnemosyneConverter/server.sock;
+    }
+    ...
+}
