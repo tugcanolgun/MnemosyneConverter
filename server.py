@@ -1,6 +1,6 @@
 """This is an attempt to convert annotatorjs type to
 W3C Annotation format in order for compliance"""
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_restful import Resource, Api
 from flask_cors import CORS
 # Import W3C schemas
@@ -59,6 +59,10 @@ class AnnotationsEmpty(Resource):
     def put(self, id: str) -> None:
         return jsonify()
 
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 api.add_resource(Search, '/search')
 api.add_resource(Custom, '/create/<path:src>')
