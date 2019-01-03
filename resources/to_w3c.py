@@ -15,7 +15,7 @@ def to_w3c(src: str,
     """Converts received object to w3c type"""
     ann: dict = w3ctext()
     ann["generator"]["id"] = src
-    ann["body"]["user"] = user
+    ann["body"]["creator"] = user
     ann["body"]["value"] = text
     ann["target"]["id"] = src
     ann["target"]["exact"] = quote
@@ -44,5 +44,4 @@ def from_ann(data: dict, username: str, src: str, api: str) -> dict:
     req = requests.post(api,
         data=json.dumps(res),
         headers=headers)
-    print(req.text)
     return res
