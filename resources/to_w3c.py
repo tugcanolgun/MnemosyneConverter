@@ -27,7 +27,7 @@ def to_w3c(src: str,
     return ann
 
 
-def from_ann(data: dict, src: str, api: str) -> dict:
+def from_ann(data: dict, username: str, src: str, api: str) -> dict:
     """Takes annotatorjs object and divides"""
     if "quote" not in data or "text" not in data or "ranges" not in data:
         return {}
@@ -38,6 +38,7 @@ def from_ann(data: dict, src: str, api: str) -> dict:
                        data["ranges"][0]["start"],
                        data["ranges"][0]["end"],
                        data["text"],
+                       username
                     )
     headers = {'Content-type': 'application/ld+json'}
     req = requests.post(api,

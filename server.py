@@ -30,9 +30,9 @@ class Search(Resource):
 
 class Custom(Resource):
     """Main handler of the W3C objects"""
-    def post(self, src: str) -> dict:
+    def post(self, username: str, src: str) -> dict:
         data = request.get_json()
-        from_ann(data, src, URL + URL_CRT)
+        from_ann(data, username, src, URL + URL_CRT)
         pass
         return jsonify(data)
 
@@ -65,7 +65,7 @@ def index():
     return render_template('index.html')
 
 api.add_resource(Search, '/search')
-api.add_resource(Custom, '/create/<path:src>')
+api.add_resource(Custom, '/create/<string:username>/<path:src>')
 api.add_resource(Annotations, '/annotations')
 api.add_resource(AnnotationsEmpty, '/annotations/<string:id>')
 
